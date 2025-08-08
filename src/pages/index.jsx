@@ -15,6 +15,33 @@ export default function Index() {
   // Parallax effects
   const yHero = useTransform(scrollYProgress, [0, 1], [0, 200]); // hero background parallax
 
+  // insights section
+  const insights =
+  [
+    {
+      title: "The Evolution of Broadcast in the Digital Age",
+      desc: "As traditional media blends with digital platforms, broadcasters must rethink storytelling formats, audience engagement, and content delivery.",
+    },
+    {
+      title: "Designing for Second Screens",
+      desc: "Audiences now consume TV content with a phone in hand. Learn how to build companion experiences that extend broadcast content to mobile.",
+    },
+    {
+      title: "Interactive News Portals: The New Norm",
+      desc: "Static news websites are being replaced by dynamic, real-time experiences. Explore the role of UX and animation in modern news portals.",
+    },
+  ]
+  const cardVariants = {
+    hidden: { opacity:0, y:30 },
+    visible: (i) => ({
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.6,
+        delay: i * 0.2
+      }
+    })
+  }
   return (
     <main className="w-full bg-black text-white font-sans">
       {/* Hero Section */}
@@ -75,12 +102,29 @@ export default function Index() {
       {/* Projects Section */}
       <section id="projects" className="py-20 px-4 bg-gray-900 w-full">
         <div className="max-w-6xl mx-auto">
-          <HeadingText text="Featured Projects" mb="10"/>
+          <HeadingText text="Featured Projects" mb="mb-10"/>
 
-          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+          <motion.div
+            className="grid gap-8 md:grid-cols-2 lg:grid-cols-3"
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, amount: 0.2 }}
+            variants={{
+              hidden: {},
+              show: {
+                transition: {
+                  staggerChildren: 0.2
+                }
+              }
+            }}
+          >
             {/* Project 1 */}
             <motion.div
               className="bg-gray-800 rounded-lg overflow-hidden shadow-lg"
+              variants={{
+                hidden: { opacity:0, y:50 },
+                show: { opacity:1, y:0 }
+              }}
               whileHover={{ scale: 1.02 }}
               transition={{ type: "spring", stiffness: 300 }}
             >
@@ -101,6 +145,10 @@ export default function Index() {
             {/* Project 2 */}
             <motion.div
               className="bg-gray-800 rounded-lg overflow-hidden shadow-lg"
+              variants={{
+                hidden: { opacity:0, y:50 },
+                show: { opacity:1, y:0 }
+              }}
               whileHover={{ scale: 1.02 }}
               transition={{ type: "spring", stiffness: 300 }}
             >
@@ -121,6 +169,10 @@ export default function Index() {
             {/* Project 3 */}
             <motion.div
               className="bg-gray-800 rounded-lg overflow-hidden shadow-lg"
+              variants={{
+                hidden: { opacity:0, y:50 },
+                show: { opacity:1, y:0 }
+              }}
               whileHover={{ scale: 1.02 }}
               transition={{ type: "spring", stiffness: 300 }}
             >
@@ -137,7 +189,7 @@ export default function Index() {
                 </p>
               </div>
             </motion.div>
-          </div>
+          </motion.div>
         </div>
       </section>
 
@@ -162,7 +214,7 @@ export default function Index() {
       <section className="relative py-20 px-4 w-full overflow-hidden flex items-center justify-center">
         {/* Content */}
         <div className="z-20 text-center px-4 text-white max-w-4xl">
-          <HeadingText text="Our Journey" mb="10"/>
+          <HeadingText text="Our Journey" mb="mb-10"/>
           
           <div className="space-y-10">
             {milestones.map((milestone, index) => (
@@ -185,43 +237,27 @@ export default function Index() {
       {/* Insights Section */}
       <section id="insights" className="py-20 px-4 bg-gray-950 w-full">
         <div className="max-w-4xl mx-auto">
-          <HeadingText text="Insights" mb="10"/>
+          <HeadingText text="Insights" mb="mb-10"/>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            
-            {/* Insight 1 */}
-            <div className="bg-gray-800 rounded-lg p-6 shadow-md">
-              <h3 className="text-xl font-semibold text-yellow-300 mb-2">
-                The Evolution of Broadcast in the Digital Age
-              </h3>
-              <p className="text-sm text-gray-300 mb-4">
-                As traditional media blends with digital platforms, broadcasters must rethink storytelling formats, audience engagement, and content delivery.
-              </p>
-              <a href="#" className="text-sm text-yellow-400 hover:underline">Read more →</a>
-            </div>
-
-            {/* Insight 2 */}
-            <div className="bg-gray-800 rounded-lg p-6 shadow-md">
-              <h3 className="text-xl font-semibold text-yellow-300 mb-2">
-                Designing for Second Screens
-              </h3>
-              <p className="text-sm text-gray-300 mb-4">
-                Audiences now consume TV content with a phone in hand. Learn how to build companion experiences that extend broadcast content to mobile.
-              </p>
-              <a href="#" className="text-sm text-yellow-400 hover:underline">Read more →</a>
-            </div>
-
-            {/* Insight 3 */}
-            <div className="bg-gray-800 rounded-lg p-6 shadow-md">
-              <h3 className="text-xl font-semibold text-yellow-300 mb-2">
-                Interactive News Portals: The New Norm
-              </h3>
-              <p className="text-sm text-gray-300 mb-4">
-                Static news websites are being replaced by dynamic, real-time experiences. Explore the role of UX and animation in modern news portals.
-              </p>
-              <a href="#" className="text-sm text-yellow-400 hover:underline">Read more →</a>
-            </div>
-
+            {/* Insights Card*/}
+            {
+              insights.map((item, index) =>(
+                <motion.div
+                  className="bg-gray-800 rounded-lg p-6 shadow-md"
+                  key={index}
+                  custom={index}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true }}
+                  variants={cardVariants}
+                >
+                  <h3 className="text-xl font-semibold text-yellow-300 mb-2">{item.title}</h3>
+                  <p className="text-sm text-gray-300 mb-4">{item.desc}</p>
+                  <a href="#" className="text-sm text-yellow-400 hover:underline">Read more →</a>
+                </motion.div>
+              ))
+            }
           </div>
         </div>
       </section>
@@ -229,7 +265,7 @@ export default function Index() {
       {/* Clients Section */}
       <section id="clients" className="py-20 px-4 bg-[#0B1120] w-full flex">
         <div className="max-w-5xl mx-auto text-center">
-          <HeadingText text="MediaVision in Numbers" mb="10"/>
+          <HeadingText text="MediaVision in Numbers" mb="mb-10"/>
 
           {/* Statistik */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center mb-20">
@@ -273,7 +309,7 @@ export default function Index() {
       {/* FAQ Section */}
       <section id="faq" className="py-20 px-4 bg-black w-full">
         <div className="max-w-4xl mx-auto">
-          <HeadingText text="Frequently Asked Questions" mb="10"/>
+          <HeadingText text="Frequently Asked Questions" mb="mb-10"/>
           <div className="space-y-6">
             <div>
               <h4 className="text-lg font-semibold text-yellow-300">Do you work with TV stations outside of Indonesia?</h4>
