@@ -1,36 +1,24 @@
-import { motion, useScroll, useTransform } from "motion/react";
-import { useRef } from "react";
+import { motion, useScroll, useTransform, AnimatePresence } from "motion/react";
+import { useRef, useState } from "react";
 import HeadingText from "../components/HeadingText";
+import insights from "../data/section/insights.json"
+import projects from "../data/section/projects.json"
+import faq from "../data/section/faq.json"
+import ourjourney from "../data/section/ourjourney.json"
 
 export default function Index() {
+  // faq section
+  const [openIndex, setOpenIndex] = useState(null);
+  const toggleFAQ = (index) => {
+    setOpenIndex(openIndex === index ? null : index)
+  }
+  
   const ref = useRef(null);
-  const milestones = [
-    { year: '2018', description: 'Founded by a team of media enthusiasts.' },
-    { year: '2020', description: 'Produced our first national television campaign.' },
-    { year: '2022', description: 'Partnered with 10+ major broadcasting networks.' },
-    { year: '2024', description: 'Expanded into OTT and mobile content platforms.' },
-  ]
   const { scrollYProgress } = useScroll({ target: ref, offset:["start start", "end start"] });
 
   // Parallax effects
   const yHero = useTransform(scrollYProgress, [0, 1], [0, 200]); // hero background parallax
 
-  // insights section
-  const insights =
-  [
-    {
-      title: "The Evolution of Broadcast in the Digital Age",
-      desc: "As traditional media blends with digital platforms, broadcasters must rethink storytelling formats, audience engagement, and content delivery.",
-    },
-    {
-      title: "Designing for Second Screens",
-      desc: "Audiences now consume TV content with a phone in hand. Learn how to build companion experiences that extend broadcast content to mobile.",
-    },
-    {
-      title: "Interactive News Portals: The New Norm",
-      desc: "Static news websites are being replaced by dynamic, real-time experiences. Explore the role of UX and animation in modern news portals.",
-    },
-  ]
   const cardVariants = {
     hidden: { opacity:0, y:30 },
     visible: (i) => ({
@@ -104,92 +92,48 @@ export default function Index() {
         <div className="max-w-6xl mx-auto">
           <HeadingText text="Featured Projects" mb="mb-10"/>
 
-          <motion.div
-            className="grid gap-8 md:grid-cols-2 lg:grid-cols-3"
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true, amount: 0.2 }}
-            variants={{
-              hidden: {},
-              show: {
-                transition: {
-                  staggerChildren: 0.2
+              <motion.div
+                className="grid gap-8 md:grid-cols-2 lg:grid-cols-3"
+                initial="hidden"
+                whileInView="show"
+                viewport={{ once: true, amount: 0.2 }}
+                variants={{
+                  hidden: {},
+                  show: {
+                    transition: {
+                      staggerChildren: 0.2
+                    }
+                  }
+                }}
+              >
+                {/* Project Card */}
+                {
+                projects.map((item, index) => (
+                <motion.div
+                  className="bg-gray-800 rounded-lg overflow-hidden shadow-lg"
+                  key={index}
+                  custom={index}
+                  variants={{
+                    hidden: { opacity:0, y:50 },
+                    show: { opacity:1, y:0 }
+                  }}
+                  whileHover={{ scale: 1.02 }}
+                  transition={{ type: "spring", stiffness: 300 }}
+                >
+                  <img
+                    src={item.img}
+                    alt={item.title}
+                    className="w-full h-60 object-cover"
+                  />
+                  <div className="p-6">
+                    <h3 className="text-xl font-bold mb-1 text-yellow-400">{item.title}</h3>
+                    <p className="text-sm text-yellow-300 mb-2">{item.category}</p>
+                    <p className="text-gray-300">{item.desc}</p>
+                  </div>
+                </motion.div>
+                ))
                 }
-              }
-            }}
-          >
-            {/* Project 1 */}
-            <motion.div
-              className="bg-gray-800 rounded-lg overflow-hidden shadow-lg"
-              variants={{
-                hidden: { opacity:0, y:50 },
-                show: { opacity:1, y:0 }
-              }}
-              whileHover={{ scale: 1.02 }}
-              transition={{ type: "spring", stiffness: 300 }}
-            >
-              <img
-                src="https://images.unsplash.com/photo-1558886668-e9a014c0141a?q=80&w=1548&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                alt="TV Show Website"
-                className="w-full h-60 object-cover"
-              />
-              <div className="p-6">
-                <h3 className="text-xl font-bold mb-1 text-yellow-400">TV Show Landing Page</h3>
-                <p className="text-sm text-yellow-300 mb-2">Broadcast / Web Platform</p>
-                <p className="text-gray-300">
-                  An interactive landing page designed for a live television program featuring voting integration and live broadcast schedules.
-                </p>
-              </div>
-            </motion.div>
-
-            {/* Project 2 */}
-            <motion.div
-              className="bg-gray-800 rounded-lg overflow-hidden shadow-lg"
-              variants={{
-                hidden: { opacity:0, y:50 },
-                show: { opacity:1, y:0 }
-              }}
-              whileHover={{ scale: 1.02 }}
-              transition={{ type: "spring", stiffness: 300 }}
-            >
-              <img
-                src="https://images.unsplash.com/photo-1685440663653-fa3e81dd109c?q=80&w=1486&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                alt="Media Mobile App"
-                className="w-full h-60 object-cover"
-              />
-              <div className="p-6">
-                <h3 className="text-xl font-bold mb-1 text-yellow-400">Media Streaming App</h3>
-                <p className="text-sm text-yellow-300 mb-2">Mobile App</p>
-                <p className="text-gray-300">
-                  A responsive mobile application that allows users to watch live channels and access exclusive shows on-demand.
-                </p>
-              </div>
-            </motion.div>
-
-            {/* Project 3 */}
-            <motion.div
-              className="bg-gray-800 rounded-lg overflow-hidden shadow-lg"
-              variants={{
-                hidden: { opacity:0, y:50 },
-                show: { opacity:1, y:0 }
-              }}
-              whileHover={{ scale: 1.02 }}
-              transition={{ type: "spring", stiffness: 300 }}
-            >
-              <img
-                src="https://plus.unsplash.com/premium_photo-1691223714409-b0cb1629f0f7?q=80&w=1820&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                alt="Newsroom CMS"
-                className="w-full h-60 object-cover"
-              />
-              <div className="p-6">
-                <h3 className="text-xl font-bold mb-1 text-yellow-400">Digital Newsroom Platform</h3>
-                <p className="text-sm text-yellow-300 mb-2">Broadcast / Web CMS</p>
-                <p className="text-gray-300">
-                  A headless CMS built for news broadcasters with real-time publishing, user roles, and integration to video pipelines.
-                </p>
-              </div>
-            </motion.div>
-          </motion.div>
+              </motion.div>
         </div>
       </section>
 
@@ -217,17 +161,17 @@ export default function Index() {
           <HeadingText text="Our Journey" mb="mb-10"/>
           
           <div className="space-y-10">
-            {milestones.map((milestone, index) => (
+            {ourjourney.map((item, index) => (
               <motion.div
-                key={milestone.year}
+                key={item.year}
                 initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.6, delay: index * 0.2 }}
                 viewport={{ once: true }}
-                className="bg-gray-800/90 border border-gray-700 rounded-xl px-6 py-5 shadow-lg text-left"
+                className="bg-gray-800/90 border border-gray-700 rounded-xl px-6 py-5 shadow-lg text-center"
               >
-                <h3 className="text-2xl font-semibold text-yellow-300">{milestone.year}</h3>
-                <p className="text-gray-200">{milestone.description}</p>
+                <h3 className="text-2xl font-semibold text-yellow-300">{item.year}</h3>
+                <p className="text-gray-200">{item.desc}</p>
               </motion.div>
             ))}
           </div>
@@ -242,7 +186,7 @@ export default function Index() {
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {/* Insights Card*/}
             {
-              insights.map((item, index) =>(
+              insights.map((item, index) => (
                 <motion.div
                   className="bg-gray-800 rounded-lg p-6 shadow-md"
                   key={index}
@@ -311,14 +255,38 @@ export default function Index() {
         <div className="max-w-4xl mx-auto">
           <HeadingText text="Frequently Asked Questions" mb="mb-10"/>
           <div className="space-y-6">
-            <div>
-              <h4 className="text-lg font-semibold text-yellow-300">Do you work with TV stations outside of Indonesia?</h4>
-              <p className="text-gray-300">Yes. We collaborate with international media partners to deliver tailored visual solutions.</p>
-            </div>
-            <div>
-              <h4 className="text-lg font-semibold text-yellow-300">Can we request a custom media project?</h4>
-              <p className="text-gray-300">Absolutely. We handle end-to-end custom projects based on your broadcasting goals and audience.</p>
-            </div>
+            {faq.map((item, index) => (
+                <motion.div
+                  key={index}
+                  className="border-b border-gray-700 pb-3 cursor-pointer"
+                  onClick={() => toggleFAQ(index)}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  viewport={{ once: true }}
+                >
+                  <h4 className="flex justify-between items-center text-lg font-semibold text-yellow-300">
+                    {item.question}
+                    <span className="text-gray-400">
+                      {openIndex === index ? "-" : "+"}
+                    </span>
+                  </h4>
+                  <AnimatePresence>
+                    {openIndex === index && (
+                      <motion.p
+                        className="text-gray-300 mt-2"
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: "auto" }}
+                        exit={{ opacity: 0, height: 0 }}
+                        transition={{ duration: 0.3 }}
+                      >
+                        {item.answer}
+                      </motion.p>
+                    )}
+                  </AnimatePresence>
+                </motion.div>
+              ))
+            }
           </div>
         </div>
       </section>
@@ -326,23 +294,50 @@ export default function Index() {
       {/* Call To Action Section */}
       <section className="py-20 px-4 bg-yellow-400 text-black w-full">
         <div className="max-w-3xl mx-auto text-center">
-          <HeadingText text="Ready to Elevate Your Media Presence?" color="text-black"/>
-          <p className="mb-6">
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+          >
+            <HeadingText text="Ready to Elevate Your Media Presence?" color="text-black"/>
+          </motion.div>
+
+          <motion.p
+            className="mb-6"
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            viewport={{ once: true }}
+          >
             Let's collaborate on building next-gen experiences for your viewers.
             Reach out today and let's talk ideas.
-          </p>
-          <a
+          </motion.p>
+
+          <motion.a
             href="mailto:youremail@example.com"
             className="inline-block bg-black text-yellow-400 px-6 py-3 rounded-md font-semibold hover:bg-gray-900 transition"
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            viewport={{ once: true }}
           >
             Start a Project
-          </a>
+          </motion.a>
         </div>
       </section>
 
       {/* Footer Section */}
-      <footer className="py-10 px-4 bg-gray-950 text-center text-gray-500 text-sm w-full">
-        &copy; {new Date().getFullYear()} MediaVision Studio. All rights reserved.
+      <footer className="py-6 px-4 bg-gray-950 text-center text-gray-500 text-sm w-full">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          viewport={{ once: true }}
+          className="hover:text-gray-300 transition-colors"
+        >
+          &copy; {new Date().getFullYear()} MediaVision Studio. All rights reserved.
+        </motion.div>
       </footer>
     </main>
   );
