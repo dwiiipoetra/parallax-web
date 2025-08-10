@@ -1,10 +1,12 @@
-import { motion, useScroll, useTransform, AnimatePresence } from "motion/react";
+import { motion, useScroll, useTransform, AnimatePresence, useInView } from "motion/react";
 import { useRef, useState } from "react";
 import HeadingText from "../components/HeadingText";
 import insights from "../data/section/insights.json"
 import projects from "../data/section/projects.json"
 import faq from "../data/section/faq.json"
 import ourjourney from "../data/section/ourjourney.json"
+import clients from "../data/section/clients.json"
+import CountUp from "react-countup";
 
 export default function Index() {
   // faq section
@@ -13,13 +15,13 @@ export default function Index() {
     setOpenIndex(openIndex === index ? null : index)
   }
   
+  // hero section
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({ target: ref, offset:["start start", "end start"] });
-
-  // Parallax effects
   const yHero = useTransform(scrollYProgress, [0, 1], [0, 200]); // hero background parallax
 
-  const cardVariants = {
+  // insights section
+  const insightsCard = {
     hidden: { opacity:0, y:30 },
     visible: (i) => ({
       opacity: 1,
@@ -30,6 +32,9 @@ export default function Index() {
       }
     })
   }
+
+  // clients section
+  const isInView = useInView(ref, {once: true})
   return (
     <main className="w-full bg-black text-white font-sans">
       {/* Hero Section */}
@@ -194,7 +199,7 @@ export default function Index() {
                   initial="hidden"
                   whileInView="visible"
                   viewport={{ once: true }}
-                  variants={cardVariants}
+                  variants={insightsCard}
                 >
                   <h3 className="text-xl font-semibold text-yellow-300 mb-2">{item.title}</h3>
                   <p className="text-sm text-gray-300 mb-4">{item.desc}</p>
@@ -211,40 +216,93 @@ export default function Index() {
         <div className="max-w-5xl mx-auto text-center">
           <HeadingText text="MediaVision in Numbers" mb="mb-10"/>
 
-          {/* Statistik */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center mb-20">
-            <div>
-              <h3 className="text-4xl font-bold text-yellow-400">120+</h3>
+          {/* Statistics */}
+          <div ref={ref} className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center mb-20">
+            <motion.div
+              initial={{opacity:0, y:40}}
+              animate={isInView ? {opacity:1, y:0} : {}}
+              transition={{duration:0.5}}
+            >
+              <h3 className="text-4xl font-bold text-yellow-400">
+                {isInView && <CountUp end={300} duration={2} suffix="+"/>}
+              </h3>
               <p className="text-gray-300">TV Campaigns</p>
-            </div>
-            <div>
-              <h3 className="text-4xl font-bold text-yellow-400">15</h3>
+            </motion.div>
+            <motion.div
+              initial={{opacity:0, y:40}}
+              animate={isInView ? {opacity:1, y:0} : {}}
+              transition={{duration:0.5, delay: 0.2}}
+            >
+              <h3 className="text-4xl font-bold text-yellow-400">
+                {isInView && <CountUp end={15} duration={2} />}
+              </h3>
               <p className="text-gray-300">Awards Won</p>
-            </div>
-            <div>
-              <h3 className="text-4xl font-bold text-yellow-400">30+</h3>
+            </motion.div>
+            <motion.div
+              initial={{opacity:0, y:40}}
+              animate={isInView ? {opacity:1, y:0} : {}}
+              transition={{duration:0.5, delay: 0.4}}
+            >
+              <h3 className="text-4xl font-bold text-yellow-400">
+                {isInView && <CountUp end={50} duration={2} suffix="+"/>}
+              </h3>
               <p className="text-gray-300">Clients</p>
-            </div>
-            <div>
-              <h3 className="text-4xl font-bold text-yellow-400">4M+</h3>
+            </motion.div>
+            <motion.div
+              initial={{opacity:0, y:40}}
+              animate={isInView ? {opacity:1, y:0} : {}}
+              transition={{duration:0.5, delay:0.6}}
+            >
+              <h3 className="text-4xl font-bold text-yellow-400">
+                {isInView && <CountUp end={10} duration={2} suffix="M+" />}
+              </h3>
               <p className="text-gray-300">Viewers Reached</p>
-            </div>
+            </motion.div>
           </div>
 
           {/* Divider */}
-          <div className="border-t border-gray-700 my-12 mx-auto w-1/3" />
+          <motion.div
+            initial={{ opacity: 0, scaleX: 0 }}
+            whileInView={{ opacity: 1, scaleX: 1 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="border-t border-gray-700 my-12 mx-auto w-1/3 origin-center"
+          />
 
-          {/* Klien */}
+          {/* Clients */}
           <div className="text-center">
-            <h3 className="text-2xl font-semibold mb-4 text-yellow-300">Trusted By Leading Media Brands</h3>
-            <p className="text-gray-400 mb-8 max-w-xl mx-auto">
+            <motion.h3
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: true }}
+              className="text-2xl font-semibold mb-4 text-yellow-300"
+            >
+                Trusted By Leading Media Brands
+            </motion.h3>
+            
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              viewport={{ once: true }}
+              className="text-gray-400 mb-8 max-w-xl mx-auto"
+            >
               We are proud to have collaborated with forward-thinking companies that shape the broadcasting landscape.
-            </p>
+            </motion.p>
+            
             <div className="flex flex-wrap justify-center gap-6">
-              <div className="bg-gray-800 px-6 py-4 rounded-md text-white shadow-md">MediaCorp</div>
-              <div className="bg-gray-800 px-6 py-4 rounded-md text-white shadow-md">TVOne</div>
-              <div className="bg-gray-800 px-6 py-4 rounded-md text-white shadow-md">VisionTV</div>
-              <div className="bg-gray-800 px-6 py-4 rounded-md text-white shadow-md">IndoMedia</div>
+              {clients.map((item, index) => (
+                <motion.div
+                  key={item}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4, delay: 0.3 + index * 0.15 }}
+                  viewport={{ once: true }}
+                  className="bg-gray-800 px-6 py-4 rounded-md text-white shadow-md">
+                    {item}
+                </motion.div>
+              ))}
             </div>
           </div>
         </div>
@@ -292,7 +350,7 @@ export default function Index() {
       </section>
 
       {/* Call To Action Section */}
-      <section className="py-20 px-4 bg-yellow-400 text-black w-full">
+      <section id="cta" className="py-20 px-4 bg-yellow-400 text-black w-full">
         <div className="max-w-3xl mx-auto text-center">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
@@ -328,13 +386,13 @@ export default function Index() {
       </section>
 
       {/* Footer Section */}
-      <footer className="py-6 px-4 bg-gray-950 text-center text-gray-500 text-sm w-full">
+      <footer id="footer" className="py-6 px-4 bg-gray-950 text-center text-gray-500 text-sm w-full">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
           viewport={{ once: true }}
-          className="hover:text-gray-300 transition-colors"
+          className="hover:text-gray-300 transition-colors cursor-pointer"
         >
           &copy; {new Date().getFullYear()} MediaVision Studio. All rights reserved.
         </motion.div>
