@@ -1,20 +1,95 @@
 [
     {
         "title": "TV Show Landing Page",
+        "slug": "tv-show-landing-page",
         "category": "Broadcast / Web Platform",
         "desc": "An interactive landing page designed for a live television program featuring voting integration and live broadcast schedules.",
-        "img": "https://images.unsplash.com/photo-1558886668-e9a014c0141a?q=80&w=1548&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        "img": "https://images.unsplash.com/photo-1558886668-e9a014c0141a?q=80&w=1548&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        "details": {
+            "date": "Jan 2025",
+            "tech": [
+                "React",
+                "Tailwind CSS",
+                "Framer Motion"
+            ],
+            "client": "MediaVision Studio",
+            "features": [
+                "Live voting integration",
+                "Real-time schedule updates",
+                "Responsive design"
+            ],
+            "images": [
+                {
+                    "src": "https://images.unsplash.com/photo-1467991521834-fb8e202c7074?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                    "desc": "The main landing page showcasing the TV show's branding, broadcast schedule, and an interactive voting button to boost audience engagement."
+                },
+                {
+                    "src": "https://images.unsplash.com/photo-1645639225406-084e354c23d2?q=80&w=1744&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                    "desc": "A responsive and user-friendly voting interface, allowing viewers to cast their votes in real-time during the live broadcast."
+                }
+            ]
+        }
     },
     {
         "title": "Media Streaming App",
+        "slug": "media-streaming-app",
         "category": "Mobile App",
         "desc": "A responsive mobile application that allows users to watch live channels and access exclusive shows on-demand.",
-        "img": "https://images.unsplash.com/photo-1685440663653-fa3e81dd109c?q=80&w=1486&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        "img": "https://images.unsplash.com/photo-1685440663653-fa3e81dd109c?q=80&w=1486&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        "details": {
+            "date": "Dec 2024",
+            "tech": [
+                "React Native",
+                "Expo",
+                "Firebase"
+            ],
+            "client": "StreamNow Inc.",
+            "features": [
+                "Live channel streaming",
+                "On-demand video library",
+                "Offline viewing mode"
+            ],
+            "images": [
+                {
+                    "src": "https://images.unsplash.com/photo-1714623323579-44f990045b64?q=80&w=1828&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                    "desc": "A sleek, modern landing page designed to highlight trending movies, TV shows, and live channels. The layout focuses on engaging visuals and easy navigation, encouraging users to explore the platform’s vast content library."
+                },
+                {
+                    "src": "https://images.unsplash.com/photo-1712903911017-7c10a3c4b3e5?q=80&w=1650&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                    "desc": "An intuitive browsing experience with categorized sections, personalized recommendations, and a responsive grid system. Optimized for both desktop and mobile devices, ensuring smooth interaction and accessibility for all users."
+                }
+            ]
+        }
     },
     {
         "title": "Digital Newsroom Platform",
+        "slug": "digital-newsroom-platform",
         "category": "Broadcast / Web CMS",
         "desc": "A headless CMS built for news broadcasters with real-time publishing, user roles, and integration to video pipelines.",
-        "img": "https://plus.unsplash.com/premium_photo-1691223714409-b0cb1629f0f7?q=80&w=1820&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        "img": "https://plus.unsplash.com/premium_photo-1691223714409-b0cb1629f0f7?q=80&w=1820&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        "details": {
+            "date": "Nov 2024",
+            "tech": [
+                "Next.js",
+                "Tailwind CSS",
+                "Strapi CMS"
+            ],
+            "client": "NewsCentral",
+            "features": [
+                "Real-time article publishing",
+                "Role-based access control",
+                "Video integration"
+            ],
+            "images": [
+                {
+                    "src": "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                    "desc": "A powerful, real-time editorial dashboard designed for news teams to manage articles, videos, and breaking news alerts efficiently. The clean interface enables journalists to focus on content creation without distractions."
+                },
+                {
+                    "src": "https://images.unsplash.com/photo-1614643738701-b3e3b4245dbc?q=80&w=1548&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                    "desc": "An integrated publishing workflow with instant preview, scheduling, and multi-platform distribution. Optimized for speed and accuracy, ensuring that news reaches audiences the moment it happens."
+                }
+            ]
+        }
     }
 ]

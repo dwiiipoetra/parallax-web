@@ -7,18 +7,23 @@ import faq from "../data/section/faq.json"
 import ourjourney from "../data/section/ourjourney.json"
 import clients from "../data/section/clients.json"
 import CountUp from "react-countup";
+import { Link } from "react-router-dom";
 
 export default function Index() {
+  // hero section
+  const ref = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset:["start start", "end start"]
+  });
+  // for slow movement
+  const yBackground = useTransform(scrollYProgress, [0, 1], [0, 150]);
+
   // faq section
   const [openIndex, setOpenIndex] = useState(null);
   const toggleFAQ = (index) => {
     setOpenIndex(openIndex === index ? null : index)
   }
-  
-  // hero section
-  const ref = useRef(null);
-  const { scrollYProgress } = useScroll({ target: ref, offset:["start start", "end start"] });
-  const yHero = useTransform(scrollYProgress, [0, 1], [0, 200]); // hero background parallax
 
   // insights section
   const insightsCard = {
@@ -40,21 +45,22 @@ export default function Index() {
       {/* Hero Section */}
       <section
         ref={ref}
-        className="relative h-screen flex items-center justify-center overflow-hidden"
+        className="relative h-screen flex items-center justify-center overflow-hidden bg-gray-900"
       >
         {/* Background Parallax Image */}
         <motion.img layout="position"
+          className="absolute inset-0 w-full h-full object-cover z-0"
+          style={{
+            y: yBackground,
+          }}
           src="https://images.unsplash.com/photo-1705951439619-28c0fbbd0ab0?q=80&w=1548&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
           alt="Hero Background"
-          className="absolute inset-0 w-full h-full object-cover z-0"
-          style={{ y: yHero }}
         />
 
-        {/* Optional Overlay */}
+        {/* Overlay */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/50 to-black/90 z-10" />
 
         {/* Content */}
-        {/* Teks Animasi */}
         <motion.div
           className="z-10 text-center px-4"
           initial={{ opacity: 0, y: 50 }}
@@ -131,7 +137,13 @@ export default function Index() {
                     className="w-full h-60 object-cover"
                   />
                   <div className="p-6">
-                    <h3 className="text-xl font-bold mb-1 text-yellow-400">{item.title}</h3>
+                    <h3 className="text-xl font-bold mb-1 text-yellow-400">
+                      <Link
+                        to={`/projects/${item.slug}`}
+                      >
+                        {item.title}
+                      </Link>
+                    </h3>
                     <p className="text-sm text-yellow-300 mb-2">{item.category}</p>
                     <p className="text-gray-300">{item.desc}</p>
                   </div>
