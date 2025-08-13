@@ -41,7 +41,7 @@ export default function Index() {
   // clients section
   const isInView = useInView(ref, {once: true})
   return (
-    <main className="w-full bg-black text-white font-sans">
+    <main className="w-full bg-black text-white">
       {/* Hero Section */}
       <section
         ref={ref}
@@ -213,9 +213,9 @@ export default function Index() {
                   viewport={{ once: true }}
                   variants={insightsCard}
                 >
-                  <h3 className="text-xl font-semibold text-yellow-300 mb-2">{item.title}</h3>
+                  <h3 className="text-xl font-bold text-yellow-400 mb-2">{item.title}</h3>
                   <p className="text-sm text-gray-300 mb-4">{item.desc}</p>
-                  <a href="#" className="text-sm text-yellow-400 hover:underline">Read more →</a>
+                  <a href="#" className="text-sm text-yellow-300 hover:underline">Read more →</a>
                 </motion.div>
               ))
             }
@@ -311,7 +311,7 @@ export default function Index() {
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.4, delay: 0.3 + index * 0.15 }}
                   viewport={{ once: true }}
-                  className="bg-gray-800 px-6 py-4 rounded-md text-white shadow-md">
+                  className="bg-gray-800 px-8 py-4 rounded-md text-white cursor-pointer shadow-md hover:bg-gray-600 transition">
                     {item}
                 </motion.div>
               ))}
